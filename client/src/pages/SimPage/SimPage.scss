@@ -1,0 +1,7 @@
+@use "../../assets/styles/colors.module.scss" as COLORS;
+
+.sim {
+    height: 100%;
+    width: 100%;
+    background-color: COLOR.$BEIGE;
+}
