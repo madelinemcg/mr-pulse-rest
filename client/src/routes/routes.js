@@ -1,6 +1,6 @@
 import { Routes as BRoutes, Navigate, Route } from "react-router-dom";
 import { useMemo } from "react";
-import { HomePage } from "../pages/HomePage/HomePage";
+import HomePage from "../pages/HomePage/HomePage";
 import SimPage from "../pages/SimPage/SimPage";
 
 export const ROUTES = {
