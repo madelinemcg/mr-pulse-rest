@@ -6,10 +6,8 @@ app = Flask(__name__, static_url_path="", static_folder='../client/build')
 def home():
     return app.send_static_file('index.html')
 
-
 @app.post('/pulsegen')
 def test():
-
     pulse_type = request.json['type']
     if pulse_type == 'sinc':
         return {'type': 'sinc',

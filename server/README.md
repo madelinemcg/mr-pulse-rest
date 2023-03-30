@@ -19,3 +19,4 @@ Run the server by navigating to the server directory, then run
 It should have a link to the localhost url in the terminal that you can CTRL+CLICK
 this will route you to the home/landing page
 
+This runs what has been compiled in the build folder on the frontend

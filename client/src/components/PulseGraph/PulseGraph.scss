@@ -1,0 +1,18 @@
+.graph_area {
+    display: flex;
+    height: 800px;
+    width: 800px;
+
+    .title {
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .graph {
+        display: flex;
+        max-width: 600px;
+        max-height: 400px;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
