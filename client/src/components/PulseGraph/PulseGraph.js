@@ -7,7 +7,6 @@ const data = {
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     datasets: [
         {
-            label: "hi",
             borderColor: "rgb(255, 99, 132)",
             fill: false,
             lineTension: 0.5,
