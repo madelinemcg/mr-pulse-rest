@@ -29,11 +29,7 @@ def get_pulse():
 
 @app.route("/pulsechange", methods=['POST', 'GET'])
 def change_pulse():
-    print(request.get_json(silent=True)['type'])
     pulse_type = request.get_json(silent=True)['type']
-
-    print(pulse_type)
-    print(graph_data(pulse_type))
 
     return {'type': pulse_type,
             'graph_data': graph_data(pulse_type)
