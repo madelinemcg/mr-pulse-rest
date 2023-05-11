@@ -19,12 +19,9 @@ function HomePage() {
     });
   }, []);
 
-  // Async function to POST data
-  async function handleTypeChange(event) {
-    console.log("change to: ", event.target.value);
-
-    // Send changed value to backend
-    const response = await fetch('/pulsechange', {
+  // Sends data to backend and updates state
+  let handleTypeChange = (event) => {
+    fetch('/pulsechange', {
       method:"POST",
         cache:"no-cache",
         headers:{
@@ -35,14 +32,14 @@ function HomePage() {
           graph_data: currentPulse.graph_data,
           type: event.target.value
         })
+    })
+    .then(res => res.json())
+    .then(data => {
+      setCurrentPulse(({
+        type: data.type,
+        graph_data: data.graph_data
+      }));
     });
-
-    const data = await response.json();
-
-    setCurrentPulse(({
-      type: data.type,
-      graph_data: data.graph_data
-    }));
   }
 
     return (
