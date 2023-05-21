@@ -1,16 +1,7 @@
 from flask import Flask, request
+from utils import graph_data
 
 app = Flask(__name__, static_url_path="", static_folder='../client/build')
-
-def graph_data(pulse_type):
-    if pulse_type == 'sinc':
-        data = [4, 2, 1]
-        return str(data)
-    if pulse_type == 'gauss':
-        data = [5, 3, 7]
-        return str(data)
-    else:
-        return "[]"
 
 @app.route('/')
 def home():
@@ -22,6 +13,10 @@ def sim_page():
 
 @app.route('/pulse')
 def get_pulse():
+    print({
+        'type': 'sinc',
+        'graph_data': graph_data('sinc')
+    })
     return {
         'type': 'sinc',
         'graph_data': graph_data('sinc')

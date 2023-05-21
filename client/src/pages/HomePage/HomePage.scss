@@ -3,4 +3,24 @@
 .home {
     height: 100%;
     width: 100%;
+
+    .button-wrapper {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+
+        .button {
+            display: flex;
+            justify-content: center;
+            background-color: COLORS.$YELLOW;
+            color: COLORS.$DARK_GREEN;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 40px;
+            font-size: 20px;
+            height: 48px;
+            width: 192px;
+        }
+
+    }
 }
