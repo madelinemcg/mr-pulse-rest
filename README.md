@@ -2,7 +2,7 @@
 
 ### Set Up
 
-First, cd to the api folder, then run
+First, open a terminal and cd to the api folder, then run
 
 `source mr-pulse-env/bin/activate`
 
