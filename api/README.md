@@ -3,13 +3,16 @@
 
 ### Python Environment and Dependencies
 
-The folder mr-pulse-env is a python interpreter,
+You can set up a python environment or download these dependencies:
+-Flask
+-Numpy
+-Python3
 
-for terminal, make sure you are in the API directory, then run 
-`source mr-pulse-env/bin/activate`
-
-for VSCode, CTRL+SHIFT+P, type "Python interpreter" and select mr-pulse-env/bin/python3
-
+The frontend is managed with yarn, which needs to be installed, then run
+`yarn install` to install depedencies
+ 
+If that is working, run `yarn build` to create a production build that
+will be used by the Flask backend.
 
 ### Run Server
 
