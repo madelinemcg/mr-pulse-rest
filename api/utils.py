@@ -32,10 +32,11 @@ def graph_data(pulse_type):
 
     else:
         print("graph_data: no type defined")
-        ydata = [4, 2, 1, 1]
-        xdata = [1, 2, 3, 4]
+        ydata = np.array([4.01, 2., 1.3, 1])
+        xdata = np.array([1, 2, 3, 4])
 
     return {
-        'xdata': str(xdata),
-        'ydata': str(ydata)
+        # Note: if np thinks the arrays are floats it will call this formatter. 
+        'xdata': np.array2string(xdata, formatter={'float_kind':lambda x: '%.3f' % x}),
+        'ydata': np.array2string(ydata, formatter={'float_kind':lambda x: '%.3f' % x})
     }
