@@ -1,10 +1,20 @@
 import numpy as np
 
+# Converts numpy array to JSON-friendly (adds commas between values)
+def format_numpy_as_json_list(array):
+        astring = '['
+        for element in array:
+            astring += f'{element:.3f}, '
+               
+        # Now chop off that last space and comma before ending
+        astring = astring[0:-2]    
+        astring += ']'
+        return astring
 
-# TODO: Redirects calculation based on pulse type
+# Redirects calculation based on pulse type
 def graph_data(pulse_type):
-    xdata = []
-    ydata = []
+    xdata = np.empty([0, 0], dtype=float)
+    ydata = np.empty([0, 0], dtype=float)
 
     npts = 16 # very short! Typically >200
     duration = 2 # milliseconds
@@ -32,11 +42,20 @@ def graph_data(pulse_type):
 
     else:
         print("graph_data: no type defined")
-        ydata = np.array([4.01, 2., 1.3, 1])
+        ydata = np.array([4.01, 2.0, 1.3, 1])
         xdata = np.array([1, 2, 3, 4])
+
+    # xdata = np.array2string(xdata, formatter={'float_kind':lambda x: '%.3f' % x})
+    # ydata = np.array2string(ydata, formatter={'float_kind':lambda x: '%.3f' % x})
+
+    xdata = format_numpy_as_json_list(xdata)
+    ydata = format_numpy_as_json_list(ydata)
+
+    print(xdata)
+    print(ydata)
 
     return {
         # Note: if np thinks the arrays are floats it will call this formatter. 
-        'xdata': np.array2string(xdata, formatter={'float_kind':lambda x: '%.3f' % x}),
-        'ydata': np.array2string(ydata, formatter={'float_kind':lambda x: '%.3f' % x})
-    }
+        'xdata': xdata,
+        'ydata': ydata
+    }   

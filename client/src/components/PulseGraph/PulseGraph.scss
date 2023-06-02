@@ -1,7 +1,7 @@
 .graph_area {
     display: flex;
-    height: 800px;
-    width: 800px;
+    height: 100%;
+    width: 100%;
 
     .title {
         justify-content: center;
@@ -10,9 +10,15 @@
 
     .graph {
         display: flex;
-        max-width: 600px;
-        max-height: 400px;
+        width: 100%;
+        height: 100%;
         justify-content: flex-end;
         align-items: center;
+        padding-right: 16px;
+
+        .canvas {
+            height: 100%;
+            width: 100%;
+        }
     }
 }

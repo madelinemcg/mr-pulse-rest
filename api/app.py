@@ -11,15 +11,11 @@ def home():
 def sim_page():
     return app.send_static_file('index.html')
 
-# Set type using this syntax: http://127.0.0.1:5000/pulse?type=sinc
 @app.route('/pulse')
 def get_pulse():
-
-    type = request.args.get('type')
-    print(f'type is {type}')
     return {
-        'type': type,
-        'graph_data': graph_data(type)
+        'type': 'none',
+        'graph_data': graph_data('none')
     }
 
 @app.route("/pulsechange", methods=['POST', 'GET'])

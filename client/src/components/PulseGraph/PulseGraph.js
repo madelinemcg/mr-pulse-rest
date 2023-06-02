@@ -19,9 +19,9 @@ const PulseGraph = (props) => {
     return (
         <div classname="graph_area">
             <p className="title">Title Goes Here</p>
-            <div>Ydata value is: {JSON.parse(props.data.ydata)}</div>
             <div className="graph">
                 <Line
+                className="canvas"
                 data={data} 
                 options={{
                     plugins: {

@@ -4,4 +4,30 @@
     height: 100%;
     width: 100%;
     background-color: COLORS.$OFF-WHITE;
+    margin-left: 16px;
+    margin-right: 16px;
+
+    .options {
+        height: 60%;
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+
+        .sliders {
+            height: 100%;
+            width: 45%;
+
+            .pulse_choice {
+                display: flex;
+                justify-content: center;
+                height: 24px;
+                margin: 16px;
+            }
+        }
+
+        .graph {
+            height: 100%;
+            width: 100%
+        }
+    }
 }

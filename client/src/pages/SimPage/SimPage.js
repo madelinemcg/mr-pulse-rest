@@ -55,14 +55,23 @@ function SimPage() {
 
     return (
         <div className="sim">
-            <p>Graphing Here</p>
+            <p>Graphing Page</p>
             <p>Current pulse type is {currentPulse.type}</p>
-            <Form.Select onChange={handleTypeChange}>
-                <option value="none">Choose Pulse</option>
-                <option value="sinc">Sinc</option>
-                <option value="gauss">Guassian</option>
-            </Form.Select>
-            <PulseGraph data={currentPulse.graph_data} />
+            <div className="options">
+                <div className="sliders">
+                    <div className="pulse_choice">
+                        <Form.Select onChange={handleTypeChange}>
+                            <option value="none">Choose Pulse</option>
+                            <option value="sinc">Sinc</option>
+                            <option value="gauss">Guassian</option>
+                        </Form.Select>
+                    </div>
+                    <div>Sliders Here</div>
+                </div>
+                <div className="graph">
+                    <PulseGraph data={currentPulse.graph_data} />
+                </div>
+            </div>
         </div>
     );
 }
