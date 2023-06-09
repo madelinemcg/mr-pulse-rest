@@ -9,10 +9,11 @@ function SimPage() {
         'graph_data': {
             'xdata': '[]',
             'ydata': '[]',
-        }
+        },
+        'graph_params': '[]'
     });
     
-    // When page is loaded, get data from backend
+    // When page is loaded, get default data from backend
     useEffect(() => {
     fetch('/pulse').then(res => res.json()).then(data => {
         setCurrentPulse(({
@@ -20,13 +21,13 @@ function SimPage() {
         graph_data: {
             'xdata': data.graph_data.xdata,
             'ydata': data.graph_data.ydata,
-        }
+        },
+        graph_params: data.graph_params
         }));
     });
-    console.log("currentPulse.graph_data: ", currentPulse.graph_data);
     }, []);
 
-    // Sends data to backend and updates state
+    // Sends new pulse type to api to recalculate values
     let handleTypeChange = (event) => {
     fetch('/pulsechange', {
         method:"POST",
@@ -36,7 +37,6 @@ function SimPage() {
             "Accept":"application/json",
         },
         body:JSON.stringify({
-            graph_data: currentPulse.graph_data,
             type: event.target.value
         })
     })
@@ -47,10 +47,10 @@ function SimPage() {
         graph_data: {
             'xdata': data.graph_data.xdata,
             'ydata': data.graph_data.ydata,
-        }
+        },
+        graph_params: data.graph_params
         }));
     });
-    console.log("Simpage currentPulse.graph_data: ", currentPulse.graph_data);
     }
 
     return (
@@ -58,7 +58,7 @@ function SimPage() {
             <p>Graphing Page</p>
             <p>Current pulse type is {currentPulse.type}</p>
             <div className="options">
-                <div className="sliders">
+                <div className="choices">
                     <div className="pulse_choice">
                         <Form.Select onChange={handleTypeChange}>
                             <option value="none">Choose Pulse</option>
@@ -66,7 +66,7 @@ function SimPage() {
                             <option value="gauss">Guassian</option>
                         </Form.Select>
                     </div>
-                    <div>Sliders Here</div>
+                    <div>{currentPulse.graph_params}</div>
                 </div>
                 <div className="graph">
                     <PulseGraph data={currentPulse.graph_data} />
