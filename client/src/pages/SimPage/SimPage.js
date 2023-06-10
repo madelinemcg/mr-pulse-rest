@@ -66,7 +66,13 @@ function SimPage() {
                             <option value="gauss">Guassian</option>
                         </Form.Select>
                     </div>
-                    <div>{currentPulse.graph_params}</div>
+                    <div>{JSON.parse(currentPulse.graph_params).map((param) => {
+                        <div key={param.name}>
+                            <div>{param.name}</div>
+                            <div>{param.val}</div>
+                        </div>
+                        
+                    })}</div>
                 </div>
                 <div className="graph">
                     <PulseGraph data={currentPulse.graph_data} />
