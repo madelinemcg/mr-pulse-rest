@@ -27,3 +27,13 @@ def change_pulse():
             'graph_data': graph_data(pulse_type),
             'graph_params': base_graph_params(pulse_type)
             }
+
+# @app.route("/pulsegraphparamchange", methods=['POST', 'GET'])
+# def change_pulse():
+#     pulse_type = request.get_json(silent=True)['type']
+#     graph_params = request.get_json(silent=True)['graph_params']
+
+#     return {'type': pulse_type,
+#             'graph_data': graph_data(pulse_type, ),
+#             'graph_params': base_graph_params(pulse_type)
+#             }

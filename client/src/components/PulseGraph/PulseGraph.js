@@ -8,9 +8,9 @@ const PulseGraph = (props) => {
         labels: JSON.parse(props.data.xdata),
         datasets: [
             {
-                borderColor: "rgb(255, 99, 132)",
+                borderColor: "rgb(25, 118, 210)",
                 fill: false,
-                lineTension: 0.5,
+                lineTension: 0,
                 data: JSON.parse(props.data.ydata),
             },
         ],

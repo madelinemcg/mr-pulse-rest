@@ -24,7 +24,6 @@ def graph_data(pulse_type):
     tau = np.linspace(-1.0, 1.0, npts)
     xdata = np.linspace(0, duration, npts)
 
-    print(f'pulse_type = {pulse_type}')
 
     if pulse_type == 'sinc':
         nlobes = 5
@@ -52,10 +51,10 @@ def graph_data(pulse_type):
 def base_graph_params(pulse_type):
     params = "[]"
 
-    if pulse_type == 'w_sinc':
+    if pulse_type == 'sinc':
         # Sorry for the super long line, Python doesn't like multi-line JSON
-        params = '[{"name": "npts", "val": "128", "min": "28", "max": "512", "step": "16"}, {"name": "duration", "val": "2.0", "min": "0.1", "max": "20.0", "step": "0.1"}, {"name": "nlobes", "val": "5", "min": "1", "max": "11", "step": "1"}, {"name": "window_alpha", "val": "1.0", "min": "0.001", "max": "1", "step": "0.001"}]'
+        params = '[{"name": "npts", "val": 128, "min": 28, "max": 512, "step": 16}, {"name": "duration", "val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1}, {"name": "nlobes", "val": 5, "min": 1, "max": 11, "step": 1}, {"name": "window_alpha", "val": 1.0, "min": 0.001, "max": 1, "step": 0.001}]'
     elif pulse_type == 'gauss':
-        params = '[{"name": "npts", "val": "128", "min": "28", "max": "512", "step": "16"}, {"name": "duration", "val": "2.0", "min": "0.1", "max": "20.0", "step": "0.1"}, {"name": "trunc", "val": "3.0", "min": "0.5", "max": "10", "step": "0.5"}]'
+        params = '[{"name": "npts", "val": 128, "min": 28, "max": 512, "step": 16}, {"name": "duration", "val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1}, {"name": "trunc", "val": 3.0, "min": 0.5, "max": 10, "step": 0.5}]'
 
     return params

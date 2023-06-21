@@ -2,6 +2,7 @@ import "./SimPage.scss";
 import PulseGraph from '../../components/PulseGraph/PulseGraph';
 import { useState, useEffect } from "react";
 import Form from 'react-bootstrap/Form';
+import Slider from '@mui/material/Slider';
 
 function SimPage() {
     const [currentPulse, setCurrentPulse] = useState({
@@ -50,8 +51,7 @@ function SimPage() {
         },
         graph_params: data.graph_params
         }));
-    });
-    }
+    })}
 
     return (
         <div className="sim">
@@ -66,12 +66,21 @@ function SimPage() {
                             <option value="gauss">Guassian</option>
                         </Form.Select>
                     </div>
-                    <div>{JSON.parse(currentPulse.graph_params).map((param) => {
-                        <div key={param.name}>
-                            <div>{param.name}</div>
-                            <div>{param.val}</div>
-                        </div>
-                        
+                    <div>{JSON.parse(currentPulse.graph_params).map((param, index) => {
+                        return (
+                            <div key={`${param.name}`}>
+                                <div>{param.name}</div>
+                                <div>
+                                    <Slider
+                                        defaultValue={param.val}
+                                        step={param.step}
+                                        min={param.min}
+                                        max={param.max}
+                                        valueLabelDisplay="auto"
+                                    />
+                                </div>
+                            </div>
+                        )
                     })}</div>
                 </div>
                 <div className="graph">
