@@ -12,28 +12,39 @@ def format_numpy_as_json_list(array):
         return astring
 
 # Redirects calculation based on pulse type
-def graph_data(pulse_type):
+def graph_data(pulse_type, params):
     xdata = np.empty([0, 0], dtype=float)
     ydata = np.empty([0, 0], dtype=float)
 
-    npts = 16 # very short! Typically >200
-    duration = 2 # milliseconds
-
-    # Calculate time axes. xdata is time, from 0 to duration.
-    # Tau is normalized from -1 to 1
-    tau = np.linspace(-1.0, 1.0, npts)
-    xdata = np.linspace(0, duration, npts)
-
-
     if pulse_type == 'sinc':
-        nlobes = 5
+        try:
+            npts = params.npts
+            duration = params.duration  # milliseconds
+            # Calculate time axes. xdata is time, from 0 to duration.
+            # Tau is normalized from -1 to 1
+            tau = np.linspace(-1.0, 1.0, npts)
+            xdata = np.linspace(0, duration, npts)
+
+            nlobes = params.nlobes
+        except:
+            print("Param object missing fields, contains: ", params)
+
         ydata = np.sin((nlobes+1) * np.pi * tau ) / ((nlobes+1) * np.pi * tau)
         ydata[np.isnan(ydata)] = 1.0 # correct div by zero error
 
     elif pulse_type == 'gauss':
-        # Here is the calculation of the guassian shape
-        truncation_sigma = 3
-        ydata = np.exp(-0.5 * (tau * truncation_sigma)**2)
+        try:
+            npts = params.npts
+            duration = params.duration  # milliseconds
+            # Calculate time axes. xdata is time, from 0 to duration.
+            # Tau is normalized from -1 to 1
+            tau = np.linspace(-1.0, 1.0, npts)
+            xdata = np.linspace(0, duration, npts)
+
+            truncation_sigma = params.trunc
+            ydata = np.exp(-0.5 * (tau * truncation_sigma)**2)
+        except:
+            print("Param object missing fields, contains: ", params)
 
     else:
         ydata = np.array([4.01, 2.0, 1.3, 1])
