@@ -16,8 +16,14 @@ def graph_data(pulse_type, params):
     xdata = np.empty([0, 0], dtype=float)
     ydata = np.empty([0, 0], dtype=float)
 
+    print("params: ", params)
+    print("params.npts: ", params.npts)
+    print("params.duration: ", params.duration)
+
     if pulse_type == 'sinc':
         try:
+            print("params.npts: ", params.npts)
+            print("params.duration: ", params.duration)
             npts = params.npts
             duration = params.duration  # milliseconds
             # Calculate time axes. xdata is time, from 0 to duration.
@@ -60,12 +66,12 @@ def graph_data(pulse_type, params):
     }   
 
 def base_graph_params(pulse_type):
-    params = "[]"
+    params = []
 
     if pulse_type == 'sinc':
         # Sorry for the super long line, Python doesn't like multi-line JSON
-        params = '[{"name": "npts", "val": 128, "min": 28, "max": 512, "step": 16}, {"name": "duration", "val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1}, {"name": "nlobes", "val": 5, "min": 1, "max": 11, "step": 1}, {"name": "window_alpha", "val": 1.0, "min": 0.001, "max": 1, "step": 0.001}]'
+        params = ["npts": {"val": 128, "min": 28, "max": 512, "step": 16}, "duration": {"val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1}, "nlobes": {"val": 5, "min": 1, "max": 11, "step": 1}, "window_alpha": {"val": 1.0, "min": 0.001, "max": 1, "step": 0.001}]
     elif pulse_type == 'gauss':
-        params = '[{"name": "npts", "val": 128, "min": 28, "max": 512, "step": 16}, {"name": "duration", "val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1}, {"name": "trunc", "val": 3.0, "min": 0.5, "max": 10, "step": 0.5}]'
+        params = ["npts": {"val": 128, "min": 28, "max": 512, "step": 16}, "duration": {"val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1}, "nlobes": {"val": 5, "min": 1, "max": 11, "step": 1}, "trunc": {"val": 3.0, "min": 0.5, "max": 10, "step": 0.5}]
 
     return params

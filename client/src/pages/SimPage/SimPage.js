@@ -38,7 +38,8 @@ function SimPage() {
             "Accept":"application/json",
         },
         body:JSON.stringify({
-            type: event.target.value
+            type: event.target.value,
+            graph_params: currentPulse.graph_params
         })
     })
     .then(res => res.json())
@@ -52,6 +53,41 @@ function SimPage() {
         graph_params: data.graph_params
         }));
     })}
+
+    // Updates graph values based on new parameters
+    let handleGraphParamChange = (event) => {
+        console.log(event);
+        // Replace changed param in graph_params
+        // currentPulse.graph_params.name[event.name]
+        // setCurrentPulse(({
+        //     ...currentPulse,
+        //     graph_params: 
+        // }));
+        // Fetch new data
+        // fetch('/pulsegraphparamchange', {
+        //     method:"POST",
+        //     cache:"no-cache",
+        //     headers:{
+        //         "Content_Type":"application/json",
+        //         "Accept":"application/json",
+        //     },
+        //     body:JSON.stringify({
+        //         type: currentPulse.type,
+        //         graph_params: currentPulse.graph_params
+        //     })
+        // })
+        // .then(res => res.json())
+        // .then(data => {
+        //     setCurrentPulse(({
+        //     ...currentPulse,
+        //     type: data.type,
+        //     graph_data: {
+        //         'xdata': data.graph_data.xdata,
+        //         'ydata': data.graph_data.ydata,
+        //     }
+        //     }));
+        // })
+    }
 
     return (
         <div className="sim">
@@ -68,8 +104,8 @@ function SimPage() {
                     </div>
                     <div>{JSON.parse(currentPulse.graph_params).map((param, index) => {
                         return (
-                            <div key={`${param.name}`}>
-                                <div>{param.name}</div>
+                            <div key={`${param}`}>
+                                <div>{param}</div>
                                 <div>
                                     <Slider
                                         defaultValue={param.val}
@@ -77,6 +113,7 @@ function SimPage() {
                                         min={param.min}
                                         max={param.max}
                                         valueLabelDisplay="auto"
+                                        onChangeCommitted={handleGraphParamChange}
                                     />
                                 </div>
                             </div>

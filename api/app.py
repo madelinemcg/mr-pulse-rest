@@ -1,5 +1,6 @@
 from flask import Flask, request
 from utils import graph_data, base_graph_params
+import json
 
 app = Flask(__name__, static_url_path="", static_folder='../client/build')
 
@@ -26,13 +27,13 @@ def change_pulse():
 
     return {'type': pulse_type,
             'graph_data': graph_data(pulse_type, params),
-            'graph_params': params
+            'graph_params': str(params)
             }
 
 @app.route("/pulsegraphparamchange", methods=['POST', 'GET'])
 def change_graph_param():
     pulse_type = request.get_json(silent=True)['type']
-    params = request.get_json(silent=True)['graph_params']
+    params = json.loads(request.get_json(silent=True)['graph_params'])
 
     return {'type': pulse_type,
             'graph_data': graph_data(pulse_type, params)

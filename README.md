@@ -1,30 +1,17 @@
-# Current Instructions to Run Locally
+# MR-Pulse-REST
 
-### Set Up
+### Purpose
 
-First, open a terminal and cd to the api folder, then run
+This project is a Spring/Summer 2023 independent study project at the University of Minnesota created by Madeline McGinnis and Pat Bolan
 
-`source mr-pulse-env/bin/activate`
+It seeks to create an accessible MRI radiofrency pulse graphing website for students and professionals seeking to optimize these pulses. It prioritizes interactivity and facilitating rapid experimentation to promote understanding of MRI radiofrequency pulses.
 
-to activate the python environment
+### Resources
 
+Our project is currently hosted at: 
 
-Next, cd to the client folder and run
+The project report can be found at: 
 
-`yarn build`
+### Running Project
 
-this creates a production level build that flask will use (I may want to fix this in the future to not require building for testing purposes)
-
-
-Assuming everything went fine, cd back to the api folder and run
-
-`flask run`
-
-to start up the server locally. It will have a link to the page and should work! Yay!
-
-
-### Special Note
-I have included some print statements in the front and back ends, the server prints will show up in the terminal, and frontend will show in the console (CTRL+SHIFT+I on the page).
-
-This was mostly for debugging purposes but I thought you may find it helpful in order to understand how data is passed better.
-
+See /client README instructions, then /api README instructions to run the project locally
