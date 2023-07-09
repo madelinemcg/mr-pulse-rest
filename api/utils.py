@@ -1,4 +1,6 @@
 import numpy as np
+import json
+import ast
 
 # Converts numpy array to JSON-friendly (adds commas between values)
 def format_numpy_as_json_list(array):
@@ -16,32 +18,41 @@ def graph_data(pulse_type, params):
     xdata = np.empty([0, 0], dtype=float)
     ydata = np.empty([0, 0], dtype=float)
 
-    print("params: ", params)
-    print("params.npts: ", params.npts)
-    print("params.duration: ", params.duration)
+    params = json.loads(params)
 
     if pulse_type == 'sinc':
         try:
-            print("params.npts: ", params.npts)
-            print("params.duration: ", params.duration)
-            npts = params.npts
-            duration = params.duration  # milliseconds
+            for pulse_dict in params:
+                if pulse_dict["name"] == "npts":
+                    npts = pulse_dict["val"]
+                elif pulse_dict["name"] == "duration":
+                    duration = pulse_dict["val"]
+                elif pulse_dict["name"] == "nlobes":
+                    nlobes = pulse_dict["val"]
+
             # Calculate time axes. xdata is time, from 0 to duration.
             # Tau is normalized from -1 to 1
             tau = np.linspace(-1.0, 1.0, npts)
             xdata = np.linspace(0, duration, npts)
 
-            nlobes = params.nlobes
-        except:
-            print("Param object missing fields, contains: ", params)
+            ydata = np.sin((nlobes+1) * np.pi * tau ) / ((nlobes+1) * np.pi * tau)
+            ydata[np.isnan(ydata)] = 1.0 # correct div by zero error
 
-        ydata = np.sin((nlobes+1) * np.pi * tau ) / ((nlobes+1) * np.pi * tau)
-        ydata[np.isnan(ydata)] = 1.0 # correct div by zero error
+
+        except:
+            print("Param assignment failed, contains: ", params)
 
     elif pulse_type == 'gauss':
         try:
-            npts = params.npts
-            duration = params.duration  # milliseconds
+            for pulse_dict in params:
+                if pulse_dict["name"] == "npts":
+                    npts = pulse_dict["val"]
+                elif pulse_dict["name"] == "duration":
+                    duration = pulse_dict["val"]
+                elif pulse_dict["name"] == "nlobes":
+                    nlobes = pulse_dict["val"]
+                elif pulse_dict["name"] == "trunc":
+                    truncation_sigma = pulse_dict["val"]
             # Calculate time axes. xdata is time, from 0 to duration.
             # Tau is normalized from -1 to 1
             tau = np.linspace(-1.0, 1.0, npts)
@@ -59,6 +70,9 @@ def graph_data(pulse_type, params):
     xdata = format_numpy_as_json_list(xdata)
     ydata = format_numpy_as_json_list(ydata)
 
+    print("Xdata: ", xdata)
+    print("Ydata: ", ydata)
+
     return {
         # Note: if np thinks the arrays are floats it will call this formatter. 
         'xdata': xdata,
@@ -66,12 +80,17 @@ def graph_data(pulse_type, params):
     }   
 
 def base_graph_params(pulse_type):
-    params = []
+    params = '[]'
 
     if pulse_type == 'sinc':
         # Sorry for the super long line, Python doesn't like multi-line JSON
-        params = ["npts": {"val": 128, "min": 28, "max": 512, "step": 16}, "duration": {"val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1}, "nlobes": {"val": 5, "min": 1, "max": 11, "step": 1}, "window_alpha": {"val": 1.0, "min": 0.001, "max": 1, "step": 0.001}]
+        params = json.dumps([{"name": "npts", "val": 128, "min": 28, "max": 512, "step": 16},
+                            {"name": "duration", "val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1},
+                            {"name": "nlobes", "val": 5, "min": 1, "max": 11, "step": 1}])
     elif pulse_type == 'gauss':
-        params = ["npts": {"val": 128, "min": 28, "max": 512, "step": 16}, "duration": {"val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1}, "nlobes": {"val": 5, "min": 1, "max": 11, "step": 1}, "trunc": {"val": 3.0, "min": 0.5, "max": 10, "step": 0.5}]
+        params = json.dumps([{"name": "npts","val": 128, "min": 28, "max": 512, "step": 16},
+                {"name": "duration", "val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1},
+                {"name": "nlobes", "val": 5, "min": 1, "max": 11, "step": 1},
+                {"name": "trunc", "val": 3.0, "min": 0.5, "max": 10, "step": 0.5}])
 
     return params

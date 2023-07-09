@@ -52,11 +52,13 @@ function SimPage() {
         },
         graph_params: data.graph_params
         }));
-    })}
+    })
+    .then(console.log("Graph_params: ", currentPulse.graph_params)
+    )}
 
     // Updates graph values based on new parameters
-    let handleGraphParamChange = (event) => {
-        console.log(event);
+    // let handleGraphParamChange = (event) => {
+    //     console.log(event);
         // Replace changed param in graph_params
         // currentPulse.graph_params.name[event.name]
         // setCurrentPulse(({
@@ -87,7 +89,7 @@ function SimPage() {
         //     }
         //     }));
         // })
-    }
+    // }
 
     return (
         <div className="sim">
@@ -113,7 +115,6 @@ function SimPage() {
                                         min={param.min}
                                         max={param.max}
                                         valueLabelDisplay="auto"
-                                        onChangeCommitted={handleGraphParamChange}
                                     />
                                 </div>
                             </div>

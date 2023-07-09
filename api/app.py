@@ -16,7 +16,7 @@ def sim_page():
 def get_pulse():
     return {
         'type': 'none',
-        'graph_data': graph_data('none', []),
+        'graph_data': graph_data('none', '[]'),
         'graph_params': base_graph_params('none')
     }
 
@@ -27,13 +27,13 @@ def change_pulse():
 
     return {'type': pulse_type,
             'graph_data': graph_data(pulse_type, params),
-            'graph_params': str(params)
+            'graph_params': params
             }
 
 @app.route("/pulsegraphparamchange", methods=['POST', 'GET'])
 def change_graph_param():
     pulse_type = request.get_json(silent=True)['type']
-    params = json.loads(request.get_json(silent=True)['graph_params'])
+    params = (request.get_json(silent=True)['graph_params'])
 
     return {'type': pulse_type,
             'graph_data': graph_data(pulse_type, params)
