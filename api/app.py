@@ -25,6 +25,8 @@ def change_pulse():
     pulse_type = request.get_json(silent=True)['type']
     params = base_graph_params(pulse_type)
 
+    print("Pulsechange data: ", graph_data(pulse_type, params))
+
     return {'type': pulse_type,
             'graph_data': graph_data(pulse_type, params),
             'graph_params': params

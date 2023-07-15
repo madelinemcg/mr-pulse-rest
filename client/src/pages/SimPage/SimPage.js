@@ -30,6 +30,7 @@ function SimPage() {
 
     // Sends new pulse type to api to recalculate values
     let handleTypeChange = (event) => {
+    console.log("Graph_params: ", currentPulse.graph_params)
     fetch('/pulsechange', {
         method:"POST",
         cache:"no-cache",
@@ -44,6 +45,7 @@ function SimPage() {
     })
     .then(res => res.json())
     .then(data => {
+        console.log("Graph_params from json: ", data.graph_params);
         setCurrentPulse(({
         type: data.type,
         graph_data: {
@@ -107,7 +109,7 @@ function SimPage() {
                     <div>{JSON.parse(currentPulse.graph_params).map((param, index) => {
                         return (
                             <div key={`${param}`}>
-                                <div>{param}</div>
+                                <div>{param.name}</div>
                                 <div>
                                     <Slider
                                         defaultValue={param.val}

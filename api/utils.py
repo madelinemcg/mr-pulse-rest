@@ -58,7 +58,6 @@ def graph_data(pulse_type, params):
             tau = np.linspace(-1.0, 1.0, npts)
             xdata = np.linspace(0, duration, npts)
 
-            truncation_sigma = params.trunc
             ydata = np.exp(-0.5 * (tau * truncation_sigma)**2)
         except:
             print("Param object missing fields, contains: ", params)
@@ -70,9 +69,6 @@ def graph_data(pulse_type, params):
     xdata = format_numpy_as_json_list(xdata)
     ydata = format_numpy_as_json_list(ydata)
 
-    print("Xdata: ", xdata)
-    print("Ydata: ", ydata)
-
     return {
         # Note: if np thinks the arrays are floats it will call this formatter. 
         'xdata': xdata,
@@ -80,7 +76,7 @@ def graph_data(pulse_type, params):
     }   
 
 def base_graph_params(pulse_type):
-    params = '[]'
+    params = json.dumps([])
 
     if pulse_type == 'sinc':
         # Sorry for the super long line, Python doesn't like multi-line JSON
@@ -88,7 +84,7 @@ def base_graph_params(pulse_type):
                             {"name": "duration", "val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1},
                             {"name": "nlobes", "val": 5, "min": 1, "max": 11, "step": 1}])
     elif pulse_type == 'gauss':
-        params = json.dumps([{"name": "npts","val": 128, "min": 28, "max": 512, "step": 16},
+        params = json.dumps([{"name": "npts", "val": 128, "min": 28, "max": 512, "step": 16},
                 {"name": "duration", "val": 2.0, "min": 0.1, "max": 20.0, "step": 0.1},
                 {"name": "nlobes", "val": 5, "min": 1, "max": 11, "step": 1},
                 {"name": "trunc", "val": 3.0, "min": 0.5, "max": 10, "step": 0.5}])
