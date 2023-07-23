@@ -4,19 +4,17 @@
 ### Python Environment and Dependencies
 
 You can set up a python environment or download these dependencies:
--Flask
--Numpy
--Python3
+    -Flask: https://flask.palletsprojects.com/en/2.3.x/installation/
+    -Numpy: https://numpy.org/install/
+    -Python3: https://www.python.org/downloads/
 
-The frontend is managed with yarn, which needs to be installed, then run
-`yarn install` to install depedencies
+The frontend is managed with yarn, see client README for instructions
  
-If that is working, run `yarn build` to create a production build that
-will be used by the Flask backend.
+If that is working, the build created will be served by the Flask backend.
 
 ### Run Server
 
-Run the server by navigating to the server directory, then run
+Run the server by navigating to the api directory, then run
 `flask run`
 
 It should have a link to the localhost url in the terminal that you can CTRL+CLICK

@@ -11,47 +11,88 @@ function SimPage() {
             'xdata': '[]',
             'ydata': '[]',
         },
-        'graph_params': '[]'
+        'graph_params': []
     });
     
     // When page is loaded, get default data from backend
     useEffect(() => {
-    fetch('/pulse').then(res => res.json()).then(data => {
-        setCurrentPulse(({
-        type: data.type,
-        graph_data: {
-            'xdata': data.graph_data.xdata,
-            'ydata': data.graph_data.ydata,
-        },
-        graph_params: data.graph_params
-        }));
-    });
-    }, []);
-
-    // Sends new pulse type to api to recalculate values
-    let handleTypeChange = (event) => {
-    fetch('/pulsechange', {
-        method:"POST",
-        cache:"no-cache",
-        headers:{
-            "Content_Type":"application/json",
-            "Accept":"application/json",
-        },
-        body:JSON.stringify({
-            type: event.target.value
+        fetch('/pulse').then(res => res.json()).then(data => {
+            setCurrentPulse(({
+            type: data.type,
+            graph_data: {
+                'xdata': data.graph_data.xdata,
+                'ydata': data.graph_data.ydata,
+            },
+            graph_params: JSON.parse(data.graph_params)
+            }));
+        });
+        }, []);
+    
+        // Sends new pulse type to api to recalculate values
+        let handleTypeChange = (event) => {
+        fetch('/pulsechange', {
+            method:"POST",
+            cache:"no-cache",
+            headers:{
+                "Content_Type":"application/json",
+                "Accept":"application/json",
+            },
+            body:JSON.stringify({
+                type: event.target.value,
+                graph_params: JSON.stringify(currentPulse.graph_params)
+            })
         })
-    })
-    .then(res => res.json())
-    .then(data => {
-        setCurrentPulse(({
-        type: data.type,
-        graph_data: {
-            'xdata': data.graph_data.xdata,
-            'ydata': data.graph_data.ydata,
-        },
-        graph_params: data.graph_params
-        }));
-    })}
+        .then(res => res.json())
+        .then(data => {
+            setCurrentPulse(({
+            type: data.type,
+            graph_data: {
+                'xdata': data.graph_data.xdata,
+                'ydata': data.graph_data.ydata,
+            },
+            graph_params: JSON.parse(data.graph_params)
+            }));
+        })
+        }
+
+    
+        // Updates graph values based on new parameters
+        let handleGraphParamChange = (event) => {
+            const newParams = (currentPulse.graph_params).map(param => {
+                if (param.name == event.target.name) {
+                    return {
+                        ...param,
+                        val: event.target.value
+                    }
+                } else {
+                    return param;
+                }
+            })
+            // Fetch new data
+            fetch('/pulsegraphparamchange', {
+                method:"POST",
+                cache:"no-cache",
+                headers:{
+                    "Content_Type":"application/json",
+                    "Accept":"application/json",
+                },
+                body:JSON.stringify({
+                    type: currentPulse.type,
+                    graph_params: JSON.stringify(newParams)
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                setCurrentPulse(({
+                ...currentPulse,
+                graph_params: JSON.parse(data.graph_params),
+                graph_data: {
+                    'xdata': data.graph_data.xdata,
+                    'ydata': data.graph_data.ydata,
+                },
+                }));
+            })
+        };
 
     return (
         <div className="sim">
@@ -66,9 +107,9 @@ function SimPage() {
                             <option value="gauss">Guassian</option>
                         </Form.Select>
                     </div>
-                    <div>{JSON.parse(currentPulse.graph_params).map((param, index) => {
+                    <div>{currentPulse.graph_params.map((param, index) => {
                         return (
-                            <div key={`${param.name}`}>
+                            <div key={`${param}`}>
                                 <div>{param.name}</div>
                                 <div>
                                     <Slider
@@ -76,7 +117,9 @@ function SimPage() {
                                         step={param.step}
                                         min={param.min}
                                         max={param.max}
+                                        name={param.name}
                                         valueLabelDisplay="auto"
+                                        onChange={handleGraphParamChange}
                                     />
                                 </div>
                             </div>
