@@ -2,7 +2,7 @@
 
 ### Purpose
 
-This project is a Spring/Summer 2023 independent study project at the University of Minnesota created by Madeline McGinnis and Pat Bolan
+This project is a Spring/Summer 2023 independent study project at the University of Minnesota created by Madeline McGinnis and faculty member Patrick Bolan
 
 It seeks to create an accessible MRI radiofrency pulse graphing website for students and professionals seeking to optimize these pulses. It prioritizes interactivity and facilitating rapid experimentation to promote understanding of MRI radiofrequency pulses.
 
