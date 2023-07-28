@@ -1,6 +1,5 @@
 import numpy as np
 import json
-import ast
 
 # Converts numpy array to JSON-friendly (adds commas between values)
 def format_numpy_as_json_list(array):

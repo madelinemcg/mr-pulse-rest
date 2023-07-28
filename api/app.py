@@ -1,6 +1,5 @@
 from flask import Flask, request
 from utils import graph_data, base_graph_params
-import json
 
 app = Flask(__name__, static_url_path="", static_folder='../client/build')
 
