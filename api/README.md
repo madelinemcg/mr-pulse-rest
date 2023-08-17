@@ -7,6 +7,7 @@ You can set up a python environment or download these dependencies:
     -Flask: https://flask.palletsprojects.com/en/2.3.x/installation/
     -Numpy: https://numpy.org/install/
     -Python3: https://www.python.org/downloads/
+    More dependencies and versions are found in requirements.txt
 
 The frontend is managed with yarn, see client README for instructions
  
