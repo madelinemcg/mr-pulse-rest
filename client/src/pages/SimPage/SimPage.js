@@ -104,7 +104,9 @@ function SimPage() {
                         <Form.Select onChange={handleTypeChange}>
                             <option value="none">Choose Pulse</option>
                             <option value="sinc">Sinc</option>
-                            <option value="gauss">Guassian</option>
+                            <option value="gauss">Gaussian</option>
+                            <option value="square">Square</option>
+                            <option value="HSn">HSn</option>
                         </Form.Select>
                     </div>
                     <div>{currentPulse.graph_params.map((param, index) => {
