@@ -100,27 +100,23 @@ def graph_data(pulse_type, params):
                     n_exp = pulse_dict["val"]
                 elif pulse_dict["name"] == "trunc":
                     trunc_value = pulse_dict["val"]
-            print("Params passed")
+
             # Calculate time axes. xdata is time, from 0 to duration.
             # Tau is normalized from -1 to 1
-            # BW = r_value / duration # Hz
+            BW = r_value / duration # Hz
 
             ### Make the pulse
             # For HSn the dummy time variable tau goes from -1 to 1, centered at zero
             tau = np.linspace(-1.0, 1.0, npts)
-            print("Tau good")
 
             # t is the time axis, in s
             xdata = np.linspace(0, duration, npts)
-            print("Xdata correct")
 
             # This is a constant, determines the smoothness of amplitude at ends
             beta = np.log((1 + np.sqrt(1-trunc_value**2)) / trunc_value)
-            print("Beta good")
 
             # The amplitude is F1
             ydata = 1/np.cosh(beta * tau**n_exp)
-            print("ydata good")
 
             '''
             # Not calculating phase in this implementation
@@ -137,8 +133,8 @@ def graph_data(pulse_type, params):
             phs_radians = integrate.cumtrapz(omega_radians_per_s * pulse_duration/(npts-1) )
             phs_radians = np.concatenate([[0], phs_radians]) # Prepend a zero value
             '''
+
             ydata = np.exp(-0.5 * (tau * trunc_value)**2)
-            print("Second ydata correct")
 
         except:
             print("HSn pulse error, param object contains: ", params)
