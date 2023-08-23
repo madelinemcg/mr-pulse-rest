@@ -140,7 +140,7 @@ def graph_data(pulse_type, params):
             print("HSn pulse error, param object contains: ", params)
 
     else:
-        ydata = np.array([4.01, 2.0, 1.3, 1])
+        ydata = np.array([2, 2, 2, 2])
         xdata = np.array([1, 2, 3, 4])
 
     xdata = format_numpy_as_json_list(xdata)
