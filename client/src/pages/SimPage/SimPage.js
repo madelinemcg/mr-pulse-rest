@@ -96,8 +96,6 @@ function SimPage() {
 
     return (
         <div className="sim">
-            <p>Graphing Page</p>
-            <p>Current pulse type is {currentPulse.type}</p>
             <div className="options">
                 <div className="choices">
                     <div className="pulse_choice">

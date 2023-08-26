@@ -26,7 +26,7 @@ def get_json_data_from_request(request):
     # PJB adding code to convert request from text to json if needed
     content_type = request.headers.get('Content-type')
     if content_type.startswith('text'):
-        print(f'*** WARNING: Expecting json, getting request with Content-type of {content_type}')
+        # print(f'*** WARNING: Expecting json, getting request with Content-type of {content_type}')
         json_data = json.loads(request.data)
     else:
         json_data = request.get_json(silent=True)
