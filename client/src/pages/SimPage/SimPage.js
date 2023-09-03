@@ -98,7 +98,7 @@ function SimPage() {
         <div className="sim">
             <div className="options">
                 <div className="choices">
-                    <div className="pulse_choice">
+                    <div className="pulse-choice">
                         <Form.Select onChange={handleTypeChange}>
                             <option value="none">Choose Pulse</option>
                             <option value="sinc">Sinc</option>
@@ -110,7 +110,7 @@ function SimPage() {
                     <div>{currentPulse.graph_params.map((param, index) => {
                         return (
                             <div key={`${param}`}>
-                                <div>{param.name}</div>
+                                <div className="param-name">{param.name}</div>
                                 <div>
                                     <Slider sx={{
                                         '& .MuiSlider-thumb': {
