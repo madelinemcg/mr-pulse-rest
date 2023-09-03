@@ -4,15 +4,13 @@
     height: 100%;
     width: 100%;
     background-color: COLORS.$OFF-WHITE;
-    margin-left: 16px;
-    margin-right: 16px;
-    margin-top: 24px;
 
     .options {
         height: 60%;
         width: 100%;
         display: flex;
         align-items: flex-start;
+        padding: 24px 48px;
 
         .choices {
             height: 100%;
@@ -27,6 +25,8 @@
         }
 
         .graph {
+            margin-left: 24px;
+            margin-right: 48px;
             height: 100%;
             width: 100%
         }

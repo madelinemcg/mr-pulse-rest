@@ -41,6 +41,12 @@ const PulseGraph = (props) => {
                           ticks: {
                             stepSize: 0.20
                           }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Gamma-Bar B1 Amplitude'
+                            }
                         }
                     },
                     elements: {

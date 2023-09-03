@@ -11,6 +11,7 @@ function Header() {
         </div>
         <div className="spacer" />
         <div className="links">
+          <div>
           {COPY.HEADER.LINKS.map((link) => (
             <Link
               className="link"
@@ -21,8 +22,13 @@ function Header() {
               {link.name}
             </Link>
           ))}
+          </div>
         </div>
-        <div className="hori-line" />
+        <div className="button-wrapper">
+          <Link href={"/simulation"} className="button">
+            Simulate Pulse
+          </Link>
+        </div>
       </div>
     </div>
   );
