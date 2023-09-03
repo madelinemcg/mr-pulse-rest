@@ -1,8 +1,8 @@
 export const COPY = {
     HEADER: {
         LINKS: [
-          { name: "About", route: "https://simulate-my-mri-pulse.onrender.com" },
-          { name: "Source Code", route: "https://github.com/madelinemcg/mr-pulse-rest" },
+          { name: "about", route: "https://simulate-my-mri-pulse.onrender.com" },
+          { name: "source code", route: "https://github.com/madelinemcg/mr-pulse-rest" },
         ],
       },
     HOME: {
