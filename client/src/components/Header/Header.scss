@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   background-color: COLORS.$WHITE;
-  height: 52px;
+  height: 64px;
   width: 100%;
   z-index: 5;
   position: sticky;
@@ -23,7 +23,7 @@
       width: 30%;
       padding-left: 48px;
       color: COLORS.$BLACK;
-      font-size: 16px;
+      font-size: 24px;
       font-weight: bold;
     }
 
@@ -44,7 +44,7 @@
       .link {
         color: COLORS.$BLACK;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 24px;
         padding: 0 12px;
       }
     }
@@ -63,7 +63,7 @@
           text-decoration: none;
           text-align: center;
           border-radius: 40px;
-          font-size: 16px;
+          font-size: 24px;
           font-weight: 500;
           height: 30px;
           width: 132px;
