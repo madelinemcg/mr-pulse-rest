@@ -8,7 +8,7 @@ const PulseGraph = (props) => {
         labels: JSON.parse(props.data.xdata),
         datasets: [
             {
-                borderColor: "rgb(25, 118, 210)",
+                borderColor: '#61919F',
                 fill: false,
                 lineTension: 0,
                 data: JSON.parse(props.data.ydata),
@@ -18,7 +18,7 @@ const PulseGraph = (props) => {
 
     return (
         <div classname="graph_area">
-            <p className="title">Title Goes Here</p>
+            <p className="title">Pulse Shape</p>
             <div className="graph">
                 <Line
                 className="canvas"
@@ -30,6 +30,28 @@ const PulseGraph = (props) => {
                         },
                         tooltip : {
                             enabled: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                          title: {
+                            display: true,
+                            text: 'Time (ms)'
+                          },
+                          ticks: {
+                            stepSize: 0.20
+                          }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Gamma-Bar B1 Amplitude'
+                            }
+                        }
+                    },
+                    elements: {
+                        point:{
+                            radius: 0
                         }
                     }
                 }}

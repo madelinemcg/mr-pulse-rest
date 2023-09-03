@@ -53,58 +53,58 @@ function SimPage() {
             graph_params: JSON.parse(data.graph_params)
             }));
         })
-        }
+    }
 
     
-        // Updates graph values based on new parameters
-        let handleGraphParamChange = (event) => {
-            const newParams = (currentPulse.graph_params).map(param => {
-                if (param.name == event.target.name) {
-                    return {
-                        ...param,
-                        val: event.target.value
-                    }
-                } else {
-                    return param;
+    // Updates graph values based on new parameters
+    let handleGraphParamChange = (event) => {
+        const newParams = (currentPulse.graph_params).map(param => {
+            if (param.name == event.target.name) {
+                return {
+                    ...param,
+                    val: event.target.value
                 }
+            } else {
+                return param;
+            }
+        })
+        // Fetch new data
+        fetch('/pulsegraphparamchange', {
+            method:"POST",
+            cache:"no-cache",
+            headers:{
+                "Content_Type":"application/json",
+                "Accept":"application/json",
+            },
+            body:JSON.stringify({
+                type: currentPulse.type,
+                graph_params: JSON.stringify(newParams)
             })
-            // Fetch new data
-            fetch('/pulsegraphparamchange', {
-                method:"POST",
-                cache:"no-cache",
-                headers:{
-                    "Content_Type":"application/json",
-                    "Accept":"application/json",
-                },
-                body:JSON.stringify({
-                    type: currentPulse.type,
-                    graph_params: JSON.stringify(newParams)
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                setCurrentPulse(({
-                ...currentPulse,
-                graph_params: JSON.parse(data.graph_params),
-                graph_data: {
-                    'xdata': data.graph_data.xdata,
-                    'ydata': data.graph_data.ydata,
-                },
-                }));
-            })
-        };
+        })
+        .then(res => res.json())
+        .then(data => {
+            setCurrentPulse(({
+            ...currentPulse,
+            graph_params: JSON.parse(data.graph_params),
+            graph_data: {
+                'xdata': data.graph_data.xdata,
+                'ydata': data.graph_data.ydata,
+            },
+            }));
+        })
+    }; 
 
     return (
         <div className="sim">
-            <p>Graphing Page</p>
-            <p>Current pulse type is {currentPulse.type}</p>
             <div className="options">
                 <div className="choices">
                     <div className="pulse_choice">
                         <Form.Select onChange={handleTypeChange}>
                             <option value="none">Choose Pulse</option>
                             <option value="sinc">Sinc</option>
-                            <option value="gauss">Guassian</option>
+                            <option value="gauss">Gaussian</option>
+                            <option value="square">Square</option>
+                            <option value="HSn">HSn</option>
                         </Form.Select>
                     </div>
                     <div>{currentPulse.graph_params.map((param, index) => {
@@ -112,7 +112,20 @@ function SimPage() {
                             <div key={`${param}`}>
                                 <div>{param.name}</div>
                                 <div>
-                                    <Slider
+                                    <Slider sx={{
+                                        '& .MuiSlider-thumb': {
+                                            color: "#61919F"
+                                        },
+                                        '& .MuiSlider-track': {
+                                            color: "#61919F"
+                                        },
+                                        '& .MuiSlider-rail': {
+                                            color: "#61919F"
+                                        },
+                                        '& .MuiSlider-active': {
+                                            color: "#61919F"
+                                        }
+                                    }}
                                         defaultValue={param.val}
                                         step={param.step}
                                         min={param.min}
