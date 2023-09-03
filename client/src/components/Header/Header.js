@@ -26,7 +26,7 @@ function Header() {
         </div>
         <div className="button-wrapper">
           <Link href={"/simulation"} className="button">
-            simulate pulse
+            Simulate Pulse
           </Link>
         </div>
       </div>
