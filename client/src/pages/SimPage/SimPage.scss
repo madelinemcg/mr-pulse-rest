@@ -16,19 +16,30 @@
             height: 100%;
             width: 45%;
 
-            .pulse_choice {
+            .pulse-choice {
                 display: flex;
                 justify-content: center;
+                font-size: 24px;
+                text-align: center;
                 height: 48px;
-                margin: 32px;
+                margin: 16px;
+
+                .form-select {
+                    font-size: 24px;
+                }
             }
+        }
+
+        .param-name {
+            font-size: 24px;
         }
 
         .graph {
             margin-left: 24px;
             margin-right: 48px;
+            margin-top: 36px;
             height: 100%;
-            width: 100%
+            width: 100%;
         }
     }
 }

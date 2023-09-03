@@ -18,7 +18,6 @@ const PulseGraph = (props) => {
 
     return (
         <div classname="graph_area">
-            <p className="title">Pulse Shape</p>
             <div className="graph">
                 <Line
                 className="canvas"
