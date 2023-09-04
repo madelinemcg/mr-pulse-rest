@@ -1,5 +1,5 @@
 from flask import Flask, request, json
-from utils import graph_data, base_graph_params
+from utils import graph_data, sim_data, base_graph_params, base_sim_params
 
 app = Flask(__name__, static_url_path="", static_folder='../client/build')
 
@@ -16,7 +16,9 @@ def get_pulse():
     return {
         'type': 'none',
         'graph_data': graph_data('none', '[]'),
-        'graph_params': base_graph_params('none')
+        'sim_data': sim_data('none', '[]', '[]'),
+        'graph_params': base_graph_params('none'),
+        'sim_params': base_sim_params('none')
     }
 
 # PJB: Adding this function because sometimes (presumably due to a configuration difference)
@@ -39,10 +41,13 @@ def change_pulse():
     json_data = get_json_data_from_request(request)
     pulse_type = json_data['type']
     params = base_graph_params(pulse_type)
+    sim_params = base_graph_params(pulse_type)
 
     return {'type': pulse_type,
             'graph_data': graph_data(pulse_type, params),
-            'graph_params': params
+            'sim_data': sim_data(pulse_type, params, sim_params),
+            'graph_params': params,
+            'sim_params': sim_params
             }
 
 @app.route("/pulsegraphparamchange", methods=['POST', 'GET'])
@@ -50,9 +55,24 @@ def change_graph_param():
     json_data = get_json_data_from_request(request)
     pulse_type = json_data['type']
     params = (json_data['graph_params'])
+    sim_params = (json_data['sim_params'])
 
     return {
             'graph_params': params,
-            'graph_data': graph_data(pulse_type, params)
+            'sim_params': sim_params,
+            'graph_data': graph_data(pulse_type, params),
+            'sim_data': sim_data(pulse_type, params, sim_params)
+            }
+
+@app.route("/pulsesimparamchange", methods=['POST', 'GET'])
+def change_sim_param():
+    json_data = get_json_data_from_request(request)
+    pulse_type = json_data['type']
+    params = (json_data['graph_params'])
+    sim_params = (json_data['sim_params'])
+
+    return {
+            'sim_params': sim_params,
+            'sim_data': sim_data(pulse_type, params, sim_params)
             }
 
