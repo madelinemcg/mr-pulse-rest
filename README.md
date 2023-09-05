@@ -10,7 +10,7 @@ It seeks to create an accessible MRI radiofrency pulse graphing website for stud
 
 Our project is currently hosted at: https://simulate-my-mri-pulse.onrender.com/
 
-UML Interaction Diagram: https://lucid.app/lucidchart/505cc1e7-63de-4c68-9a65-a66b82724f6a/edit?viewport_loc=-2066%2C-523%2C2577%2C1551%2C0_0&invitationId=inv_70da589f-980e-43c1-bf08-8e3504e649f9
+UML Interaction Diagram: ![UMLDiagram](client/public/UMLDiagram.png)  
 
 
 ### Running Project
