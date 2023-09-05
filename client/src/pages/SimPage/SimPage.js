@@ -10,6 +10,7 @@ function SimPage() {
         'graph_data': {
             'xdata': '[]',
             'ydata': '[]',
+            'phase': '[]',
         },
         'graph_params': []
     });
@@ -22,6 +23,7 @@ function SimPage() {
             graph_data: {
                 'xdata': data.graph_data.xdata,
                 'ydata': data.graph_data.ydata,
+                'phase': data.graph_data.phase,
             },
             graph_params: JSON.parse(data.graph_params)
             }));
@@ -49,6 +51,7 @@ function SimPage() {
             graph_data: {
                 'xdata': data.graph_data.xdata,
                 'ydata': data.graph_data.ydata,
+                'phase': data.graph_data.phase,
             },
             graph_params: JSON.parse(data.graph_params)
             }));
@@ -89,6 +92,7 @@ function SimPage() {
             graph_data: {
                 'xdata': data.graph_data.xdata,
                 'ydata': data.graph_data.ydata,
+                'phase': data.graph_data.phase,
             },
             }));
         })
