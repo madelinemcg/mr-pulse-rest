@@ -59,10 +59,13 @@ def simulate_effect_of_rf_pulse(pulse_type, graph_data, graph_params, sim_params
     ################ INPUTS ################
     # Pass in the xdata, amp (ydata), and pha (phase), same array values that are returned from graph_data()
     # These you will pack up in JSON and unpack here
-    # I'm hardwiring a simple sinc here
     xdata = graph_data["xdata"]
-    phs = graph_data["phase"]
-    amp = graph_data["ydata"]
+    phs = json.loads(graph_data["phase"])
+    amp = json.loads(graph_data["ydata"])
+    print("LISTS - PHS: ", phs, " AMP: ", amp)
+    phs = np.array(phs)
+    amp = np.array(amp)
+    print("NP ARRAYS - PHS: ", phs, " AMP: ", amp)
 
     # These are scalar values that come from sliders. Pass these in too
     # Configure the sliders to give the min, max, step and default values specified below
@@ -103,7 +106,7 @@ def simulate_effect_of_rf_pulse(pulse_type, graph_data, graph_params, sim_params
     offsets = np.linspace(-simulation_bw/2, simulation_bw/2, offset_steps)
 
     # Convert polar RF into cartesian components
-    print("Variables - gamma_b1_max: ", gamma_b1_max, " b1_amp: ", b1_amp, " b1_phase: ", b1_phase, "\n")
+    print("Variables - gamma_b1_max: ", type(gamma_b1_max), " b1_amp: ", type(b1_amp), " b1_phase: ", type(b1_phase), "\n")
     b1x = 2 * np.pi * gamma_b1_max * b1_amp * np.cos(pulse_phase + b1_phase)
     b1y = 2 * np.pi * gamma_b1_max * b1_amp * np.sin(pulse_phase + b1_phase)
 

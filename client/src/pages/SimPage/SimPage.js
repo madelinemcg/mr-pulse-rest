@@ -145,8 +145,8 @@ function SimPage() {
             body:JSON.stringify({
                 type: currentPulse.type,
                 graph_data: currentPulse.graph_data,
-                graph_params: JSON.stringify(newParams),
-                sim_params: JSON.stringify(currentPulse.sim_params)
+                graph_params: JSON.stringify(currentPulse.graph_params),
+                sim_params: JSON.stringify(newParams)
             })
         })
         .then(res => res.json())

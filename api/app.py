@@ -15,7 +15,6 @@ def sim_page():
 
 @app.route('/pulse')
 def get_pulse():
-    print(base_sim_params('none'))
     return {
         'type': 'none',
         'graph_data': graph_data('none', '[]'),
