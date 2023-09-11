@@ -1,18 +1,26 @@
-import "./PulseGraph.scss";
+import "./SimGraph.scss";
 import React, { useEffect } from 'react';
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
-const PulseGraph = (props) => {
+const SimGraph = (props) => {
 
     const data = {
         labels: JSON.parse(props.data.xdata),
         datasets: [
             {
+                label: 'Mxy',
                 borderColor: '#61919F',
                 fill: false,
                 lineTension: 0,
-                data: JSON.parse(props.data.ydata),
+                data: JSON.parse(props.data.mxy),
+            },
+            {
+                label: 'Mz',
+                borderColor: '#222016',
+                fill: false,
+                lineTension: 0,
+                data: JSON.parse(props.data.mz),
             },
         ],
     };
@@ -36,7 +44,7 @@ const PulseGraph = (props) => {
                         x: {
                           title: {
                             display: true,
-                            text: 'Time (ms)'
+                            text: 'Off Resonance (Hz)'
                           },
                           ticks: {
                             stepSize: 0.20
@@ -45,7 +53,7 @@ const PulseGraph = (props) => {
                         y: {
                             title: {
                                 display: true,
-                                text: 'Gamma-Bar B1 Amplitude'
+                                text: '|Mxy|'
                             }
                         }
                     },
@@ -61,4 +69,4 @@ const PulseGraph = (props) => {
     );
 };
 
-export default PulseGraph;
+export default SimGraph;

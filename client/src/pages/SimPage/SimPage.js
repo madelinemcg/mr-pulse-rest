@@ -3,6 +3,7 @@ import PulseGraph from '../../components/PulseGraph/PulseGraph';
 import { useState, useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import Slider from '@mui/material/Slider';
+import SimGraph from "../../components/SimGraph/SimGraph";
 
 function SimPage() {
     const [currentPulse, setCurrentPulse] = useState({
@@ -12,7 +13,13 @@ function SimPage() {
             'ydata': '[]',
             'phase': '[]',
         },
-        'graph_params': []
+        'graph_params': [],
+        'sim_params': [],
+        'sim_data': {
+            'xdata': '[]',
+            'mxy': '[]',
+            'mz': '[]'
+        }
     });
     
     // When page is loaded, get default data from backend
@@ -25,7 +32,13 @@ function SimPage() {
                 'ydata': data.graph_data.ydata,
                 'phase': data.graph_data.phase,
             },
-            graph_params: JSON.parse(data.graph_params)
+            graph_params: JSON.parse(data.graph_params),
+            sim_params: JSON.parse(data.sim_params),
+            sim_data: {
+                'xdata': data.sim_data.xdata,
+                'mxy': data.sim_data.mxy,
+                'mz': data.sim_data.mz
+            }
             }));
         });
         }, []);
@@ -40,8 +53,7 @@ function SimPage() {
                 "Accept":"application/json",
             },
             body:JSON.stringify({
-                type: event.target.value,
-                graph_params: JSON.stringify(currentPulse.graph_params)
+                type: event.target.value
             })
         })
         .then(res => res.json())
@@ -53,7 +65,13 @@ function SimPage() {
                 'ydata': data.graph_data.ydata,
                 'phase': data.graph_data.phase,
             },
-            graph_params: JSON.parse(data.graph_params)
+            graph_params: JSON.parse(data.graph_params),
+            sim_params: JSON.parse(data.sim_params),
+            sim_data: {
+                'xdata': data.sim_data.xdata,
+                'mxy': data.sim_data.mxy,
+                'mz': data.sim_data.mz
+            }
             }));
         })
     }
@@ -81,7 +99,8 @@ function SimPage() {
             },
             body:JSON.stringify({
                 type: currentPulse.type,
-                graph_params: JSON.stringify(newParams)
+                graph_params: JSON.stringify(newParams),
+                sim_params: JSON.stringify(currentPulse.sim_params)
             })
         })
         .then(res => res.json())
@@ -94,6 +113,52 @@ function SimPage() {
                 'ydata': data.graph_data.ydata,
                 'phase': data.graph_data.phase,
             },
+            sim_data: {
+                'xdata': data.sim_data.xdata,
+                'mxy': data.sim_data.mxy,
+                'mz': data.sim_data.mz,
+            }
+            }));
+        })
+    }; 
+
+    // Updates graph values based on new parameters
+    let handleSimParamChange = (event) => {
+        const newParams = (currentPulse.sim_params).map(param => {
+            if (param.name == event.target.name) {
+                return {
+                    ...param,
+                    val: event.target.value
+                }
+            } else {
+                return param;
+            }
+        })
+        // Fetch new data
+        fetch('/pulsesimparamchange', {
+            method:"POST",
+            cache:"no-cache",
+            headers:{
+                "Content_Type":"application/json",
+                "Accept":"application/json",
+            },
+            body:JSON.stringify({
+                type: currentPulse.type,
+                graph_data: currentPulse.graph_data,
+                graph_params: JSON.stringify(newParams),
+                sim_params: JSON.stringify(currentPulse.sim_params)
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            setCurrentPulse(({
+            ...currentPulse,
+            sim_params: data.sim_params,
+            sim_data: {
+                'xdata': data.sim_data.xdata,
+                'mxy': data.sim_data.mxy,
+                'mz': data.sim_data.mz,
+            }
             }));
         })
     }; 
@@ -145,6 +210,45 @@ function SimPage() {
                 </div>
                 <div className="graph">
                     <PulseGraph data={currentPulse.graph_data} />
+                </div>
+            </div>
+            <div className="options">
+                <div className="choices">
+                <div>{currentPulse.sim_params.map((param, index) => {
+                        return (
+                            <div key={`${param}`}>
+                                <div className="param-name">{param.name}</div>
+                                <div>
+                                    <Slider sx={{
+                                        '& .MuiSlider-thumb': {
+                                            color: "#61919F"
+                                        },
+                                        '& .MuiSlider-track': {
+                                            color: "#61919F"
+                                        },
+                                        '& .MuiSlider-rail': {
+                                            color: "#61919F"
+                                        },
+                                        '& .MuiSlider-active': {
+                                            color: "#61919F"
+                                        }
+                                    }}
+                                        defaultValue={param.val}
+                                        step={param.step}
+                                        min={param.min}
+                                        max={param.max}
+                                        name={param.name}
+                                        valueLabelDisplay="auto"
+                                        onChange={handleSimParamChange}
+                                    />
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                </div>
+                <div className="graph">
+                    <SimGraph data={currentPulse.sim_data} />
                 </div>
             </div>
         </div>
