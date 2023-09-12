@@ -59,7 +59,8 @@ def simulate_effect_of_rf_pulse(pulse_type, graph_data, graph_params, sim_params
     ################ INPUTS ################
     # Pass in the xdata, amp (ydata), and pha (phase), same array values that are returned from graph_data()
     # These you will pack up in JSON and unpack here
-    xdata = graph_data["xdata"]
+    #xdata = graph_data["xdata"]
+    xdata = json.loads(graph_data["xdata"])
     phs = json.loads(graph_data["phase"])
     amp = json.loads(graph_data["ydata"])
     print("LISTS - PHS: ", phs, " AMP: ", amp)
