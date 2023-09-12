@@ -10,9 +10,9 @@ It seeks to create an accessible MRI radiofrency pulse graphing website for stud
 
 Our project is currently hosted at: https://simulate-my-mri-pulse.onrender.com/
 
-The project report can be found at: 
+UML Interaction Diagram:
 
-UML Diagram: 
+![UMLDiagram](client/public/UMLDiagram.png)  
 
 
 ### Running Project

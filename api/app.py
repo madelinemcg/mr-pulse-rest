@@ -1,5 +1,7 @@
 from flask import Flask, request, json
-from utils import graph_data, base_graph_params
+from graphUtils import graph_data
+from simUtils import simulate_effect_of_rf_pulse
+from baseUtils import base_graph_params, base_sim_params, get_json_data_from_request
 
 app = Flask(__name__, static_url_path="", static_folder='../client/build')
 
@@ -16,22 +18,10 @@ def get_pulse():
     return {
         'type': 'none',
         'graph_data': graph_data('none', '[]'),
-        'graph_params': base_graph_params('none')
+        'graph_params': base_graph_params('none'),
+        'sim_data': simulate_effect_of_rf_pulse('none', '[]', '[]', '[]'),
+        'sim_params': base_sim_params('none')
     }
-
-# PJB: Adding this function because sometimes (presumably due to a configuration difference)
-# The reqests get sent with Content-type = 'text/plain;charset=UTF-9'. Best to fix this
-# in the client, but for now, just convert that text to json
-def get_json_data_from_request(request):
-    # PJB adding code to convert request from text to json if needed
-    content_type = request.headers.get('Content-type')
-    if content_type.startswith('text'):
-        # print(f'*** WARNING: Expecting json, getting request with Content-type of {content_type}')
-        json_data = json.loads(request.data)
-    else:
-        json_data = request.get_json(silent=True)
-
-    return json_data
 
 @app.route("/pulsechange", methods=['POST', 'GET'])
 def change_pulse():
@@ -39,20 +29,39 @@ def change_pulse():
     json_data = get_json_data_from_request(request)
     pulse_type = json_data['type']
     params = base_graph_params(pulse_type)
+    sim_params = base_sim_params(pulse_type)
+    new_graph_data = graph_data(pulse_type, params)
 
     return {'type': pulse_type,
-            'graph_data': graph_data(pulse_type, params),
-            'graph_params': params
+            'graph_data': new_graph_data,
+            'graph_params': params,
+            'sim_params': sim_params,
+            'sim_data': simulate_effect_of_rf_pulse(pulse_type, new_graph_data, params, sim_params),
             }
 
 @app.route("/pulsegraphparamchange", methods=['POST', 'GET'])
 def change_graph_param():
     json_data = get_json_data_from_request(request)
     pulse_type = json_data['type']
-    params = (json_data['graph_params'])
+    params = json_data['graph_params']
+    new_graph_data = graph_data(pulse_type, params)
+    sim_params = json_data['sim_params']
 
     return {
             'graph_params': params,
-            'graph_data': graph_data(pulse_type, params)
+            'graph_data': new_graph_data,
+            'sim_data': simulate_effect_of_rf_pulse(pulse_type, new_graph_data, params, sim_params)
             }
 
+@app.route("/pulsesimparamchange", methods=['POST', 'GET'])
+def change_sim_param():
+    json_data = get_json_data_from_request(request)
+    pulse_type = json_data['type']
+    params = json_data['graph_params']
+    new_graph_data = json_data['graph_data']
+    sim_params = json_data['sim_params']
+
+    return {
+            'sim_params': sim_params,
+            'sim_data': simulate_effect_of_rf_pulse(pulse_type, new_graph_data, params, sim_params)
+            }
