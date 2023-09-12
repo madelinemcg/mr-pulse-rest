@@ -1,5 +1,5 @@
 import "./PulseGraph.scss";
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
@@ -30,6 +30,12 @@ const PulseGraph = (props) => {
                         },
                         tooltip : {
                             enabled: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Pulse Shape',
+                            align: 'center',
+                            color: '#222016'
                         }
                     },
                     scales: {

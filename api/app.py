@@ -44,13 +44,13 @@ def change_graph_param():
     json_data = get_json_data_from_request(request)
     pulse_type = json_data['type']
     params = json_data['graph_params']
-    graph_data = graph_data(pulse_type, params)
+    new_graph_data = graph_data(pulse_type, params)
     sim_params = json_data['sim_params']
 
     return {
             'graph_params': params,
-            'graph_data': graph_data,
-            'sim_data': simulate_effect_of_rf_pulse(pulse_type, graph_data, params, sim_params)
+            'graph_data': new_graph_data,
+            'sim_data': simulate_effect_of_rf_pulse(pulse_type, new_graph_data, params, sim_params)
             }
 
 @app.route("/pulsesimparamchange", methods=['POST', 'GET'])
@@ -58,10 +58,10 @@ def change_sim_param():
     json_data = get_json_data_from_request(request)
     pulse_type = json_data['type']
     params = json_data['graph_params']
-    graph_data = json_data['graph_data']
+    new_graph_data = json_data['graph_data']
     sim_params = json_data['sim_params']
 
     return {
             'sim_params': sim_params,
-            'sim_data': simulate_effect_of_rf_pulse(pulse_type, graph_data, params, sim_params)
+            'sim_data': simulate_effect_of_rf_pulse(pulse_type, new_graph_data, params, sim_params)
             }

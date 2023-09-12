@@ -1,5 +1,5 @@
 import "./SimGraph.scss";
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
@@ -34,10 +34,16 @@ const SimGraph = (props) => {
                 options={{
                     plugins: {
                         legend: {
-                            display: false
+                            position: 'top',
                         },
                         tooltip : {
                             enabled: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Simulation',
+                            align: 'center',
+                            color: '#222016'
                         }
                     },
                     scales: {

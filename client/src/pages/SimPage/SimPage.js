@@ -153,7 +153,7 @@ function SimPage() {
         .then(data => {
             setCurrentPulse(({
             ...currentPulse,
-            sim_params: data.sim_params,
+            sim_params: JSON.parse(data.sim_params),
             sim_data: {
                 'xdata': data.sim_data.xdata,
                 'mxy': data.sim_data.mxy,
@@ -213,7 +213,7 @@ function SimPage() {
                 </div>
             </div>
             <div className="options">
-                <div className="choices">
+                <div className="sim-choices">
                 <div>{currentPulse.sim_params.map((param, index) => {
                         return (
                             <div key={`${param}`}>
@@ -247,7 +247,7 @@ function SimPage() {
                     })}
                 </div>
                 </div>
-                <div className="graph">
+                <div className="sim-graph">
                     <SimGraph data={currentPulse.sim_data} />
                 </div>
             </div>
