@@ -79,7 +79,7 @@ function SimPage() {
     
     // Updates graph values based on new parameters
     let handleGraphParamChange = (event) => {
-        const newParams = (currentPulse.graph_params).map(param => {
+        const newGraphParams = (currentPulse.graph_params).map(param => {
             if (param.name == event.target.name) {
                 return {
                     ...param,
@@ -99,7 +99,7 @@ function SimPage() {
             },
             body:JSON.stringify({
                 type: currentPulse.type,
-                graph_params: JSON.stringify(newParams),
+                graph_params: JSON.stringify(newGraphParams),
                 sim_params: JSON.stringify(currentPulse.sim_params)
             })
         })
@@ -124,7 +124,7 @@ function SimPage() {
 
     // Updates graph values based on new parameters
     let handleSimParamChange = (event) => {
-        const newParams = (currentPulse.sim_params).map(param => {
+        const newSimParams = (currentPulse.sim_params).map(param => {
             if (param.name == event.target.name) {
                 return {
                     ...param,
@@ -146,7 +146,7 @@ function SimPage() {
                 type: currentPulse.type,
                 graph_data: currentPulse.graph_data,
                 graph_params: JSON.stringify(currentPulse.graph_params),
-                sim_params: JSON.stringify(newParams)
+                sim_params: JSON.stringify(newSimParams)
             })
         })
         .then(res => res.json())
