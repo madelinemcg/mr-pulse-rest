@@ -1,6 +1,5 @@
-from baseUtils import format_numpy_as_json_list
+from baseUtils import format_numpy_as_json_list, scipy_integrate_cumtrapz
 import numpy as np
-import scipy
 import math
 import json
 
@@ -41,6 +40,9 @@ def graph_data(pulse_type, params):
 
         except:
             print("Sinc pulse error, param object contains: ", params)
+            amp = np.array([2, 2, 2, 2])
+            xdata = np.array([1, 2, 3, 4])
+            phs = np.array([1, 2, 3, 4])
 
     elif pulse_type == 'gauss':
         try:
@@ -61,6 +63,9 @@ def graph_data(pulse_type, params):
 
         except:
             print("Gauss pulse error, param object contains: ", params)
+            amp = np.array([2, 2, 2, 2])
+            xdata = np.array([1, 2, 3, 4])
+            phs = np.array([1, 2, 3, 4])
 
     elif pulse_type == 'square':
         try:
@@ -79,6 +84,9 @@ def graph_data(pulse_type, params):
 
         except:
             print("Square pulse error, param object contains: ", params)
+            amp = np.array([2, 2, 2, 2])
+            xdata = np.array([1, 2, 3, 4])
+            phs = np.array([1, 2, 3, 4])
 
     elif pulse_type == 'HSn':
         try:
@@ -97,6 +105,7 @@ def graph_data(pulse_type, params):
             # Calculate time axes. xdata is time, from 0 to duration.
             # Tau is normalized from -1 to 1
             BW = r_value / duration # Hz
+            
 
             ### Make the pulse
             # For HSn the dummy time variable tau goes from -1 to 1, centered at zero
@@ -112,9 +121,10 @@ def graph_data(pulse_type, params):
             # 20230905 PJB: fixed bug with non-integer n_exp. 
             #F1 = 1/np.cosh(beta * tau**n_exp)
             F1 = 1/np.cosh(beta * np.abs(tau)**n_exp)
+            
 
-            # Not calculating phase in this implementation
-            F2 = scipy.integrate.cumtrapz(F1**2) # has one less element than F1
+            # Not calculating phase in this implementation                                                                           
+            F2 = scipy_integrate_cumtrapz(F1**2) # has one less element than F1
             F2 = np.concatenate([[0], F2]) # Prepend a zero value
 
             # Calculate frequency sweep in Hz
@@ -123,15 +133,17 @@ def graph_data(pulse_type, params):
             omega_Hz = omega_Hz - BW/2
 
             omega_radians_per_s = omega_Hz * 2 * math.pi
-            phs_radians = scipy.integrate.cumtrapz(omega_radians_per_s * duration/(npts-1) )
+            phs_radians = scipy_integrate_cumtrapz(omega_radians_per_s * duration/(npts-1) )
             phs_radians = np.concatenate([[0], phs_radians]) # Prepend a zero value
         
             amp = F1
             phs = phs_radians
 
-
         except:
             print("HSn pulse error, param object contains: ", params)
+            amp = np.array([2, 2, 2, 2])
+            xdata = np.array([1, 2, 3, 4])
+            phs = np.array([1, 2, 3, 4])
 
     else:      
         amp = np.array([2, 2, 2, 2])

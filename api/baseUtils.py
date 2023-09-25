@@ -1,4 +1,5 @@
 import json
+import numpy as np
 
 # Converts numpy array to JSON-friendly (adds commas between values)
 def format_numpy_as_json_list(array):
@@ -10,6 +11,20 @@ def format_numpy_as_json_list(array):
         astring = astring[0:-2]    
         astring += ']'
         return astring
+
+def tupleset(t, i, value):
+    l = list(t)
+    l[i] = value
+    return tuple(l)
+
+def scipy_integrate_cumtrapz(y, dx=1.0, axis=-1):
+  d = dx
+  nd = len(y.shape)
+  slice1 = tupleset((slice(None),)*nd, axis, slice(1, None))
+  slice2 = tupleset((slice(None),)*nd, axis, slice(None, -1))
+  #res = add.accumulate(d * (y[slice1] + y[slice2]) / 2.0, axis)
+  res = np.cumsum(d * (y[slice1] + y[slice2]) / 2.0, axis)
+  return res
 
 # PJB: Adding this function because sometimes (presumably due to a configuration difference)
 # The reqests get sent with Content-type = 'text/plain;charset=UTF-9'. Best to fix this
